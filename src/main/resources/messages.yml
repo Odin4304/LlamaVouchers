@@ -1,0 +1,23 @@
+prefix: "&8» &5Vouchers &8| &7"
+no-permission: "&cYou have insufficient permissions to execute this command."
+
+invalid-rewards: "&cPlease provide a valid reward string."
+invalid-time: "&cPlease provide a valid time format: 120s = seconds, 3h = 3 hours, 1m = 1 month"
+invalid-number: "&c'Uses' must be a number."
+invalid-target: "&cPlease provide a valid player."
+voucher-created: "&aYou successfully created a voucher: &e[0]"
+voucher-not-found: "&cInvalid code: &e[0]"
+voucher-already-redeemed: "&cYou have already redeemed the code: &e[0]"
+voucher-redeemed: "&aYou successfully redeemed the voucher &e[0]&a."
+voucher-usage: "&7Usage: &e/[0] <public|player>"
+redeem-usage: "&7Usage: &e/[0] <Code>"
+
+form-public-title: "Create public code"
+form-public-uses: "How many players can redeem the voucher?"
+form-public-time: "When does the voucher expire? &7120s = seconds, 3h = 3 hours, 1m = 1 month"
+form-public-rewards: "What does this voucher include? &7You can separate the commands with a &e,&7."
+
+form-player-title: "Create player code"
+form-player-player: "Which player is this voucher for?"
+form-player-time: "When does the voucher expire? &73d = 3 days, 3h = 3 hours, ..."
+form-player-rewards: "What does this voucher include? &7You can separate the commands with a &e,&7."
