@@ -92,12 +92,12 @@ public class MongodbProvider extends Provider {
             player.sendMessage(Language.get("voucher-not-found", code));
             return;
         }
-        if (voucher.getPlayers().size() >= voucher.getUses()) {
+        if (voucher.getPlayers() != null && voucher.getPlayers().size() >= voucher.getUses()) {
             player.sendMessage(Language.get("voucher-not-found", code));
             this.deleteVoucher(voucher.getId());
             return;
         }
-        if (voucher.getPlayers().contains(player.getName())) {
+        if (voucher.getPlayers() != null && voucher.getPlayers().contains(player.getName())) {
             player.sendMessage(Language.get("voucher-already-redeemed", code));
             return;
         }
@@ -105,7 +105,7 @@ public class MongodbProvider extends Provider {
         player.sendMessage(Language.get("voucher-redeemed", code));
         if (voucher.getPlayer().equals("")) {
             this.addPlayer(player.getName(), voucher);
-            if (voucher.getPlayers().size() + 1 >= voucher.getUses()) this.deleteVoucher(voucher.getId());
+            if (voucher.getPlayers().size() + 1 > voucher.getUses()) this.deleteVoucher(voucher.getId());
         } else this.deleteVoucher(voucher.getId());
     }
 
@@ -124,14 +124,23 @@ public class MongodbProvider extends Provider {
 
     @Override
     public Voucher getVoucher(String id) {
+        Voucher voucher = null;
         Document document = this.voucherCollection.find(new Document("id", id)).first();
-        assert document != null;
-        String player = document.getString("player");
-        int uses = document.getInteger("ueses");
-        List<String> players = document.getList("players", String.class);
-        long time = document.getLong("time");
-        List<String> rewards = document.getList("rewards", String.class);
-        return new Voucher(id, player, uses, players, time, rewards);
+        if (document != null) {
+            if (document.getString("player") != null) {
+                String player = document.getString("player");
+                long time = document.getLong("time");
+                List<String> rewards = document.getList("rewards", String.class);
+                voucher = new Voucher(id, player, -1, null, time, rewards);
+            } else {
+                int uses = document.getInteger("uses");
+                List<String> players = document.getList("players", String.class);
+                long time = document.getLong("time");
+                List<String> rewards = document.getList("rewards", String.class);
+                voucher = new Voucher(id, "", uses, players, time, rewards);
+            }
+        }
+        return voucher;
     }
 
     @Override
