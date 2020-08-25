@@ -10,6 +10,7 @@ import net.lldv.llamavouchers.components.language.Language;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.time.Duration;
 import java.util.Arrays;
@@ -49,6 +50,19 @@ public class MySqlProvider extends Provider {
                 }
             }
         });
+    }
+
+    @Override
+    public void disconnect(LlamaVouchers instance) {
+        if (this.connection != null) {
+            try {
+                this.connection.close();
+                instance.getLogger().info("[MySqlClient] Connection closed.");
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+                instance.getLogger().info("[MySqlClient] Failed to close connection.");
+            }
+        }
     }
 
     @Override
