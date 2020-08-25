@@ -43,7 +43,7 @@ public class VoucherCommand extends Command {
                                                 player.sendMessage(Language.get("invalid-rewards"));
                                                 return;
                                             }
-                                            List<String> rewards = new ArrayList<>(Arrays.asList(rawRewards.split(",")));
+                                            List<String> rewards = new ArrayList<>(Arrays.asList(rawRewards.split(";")));
                                             LlamaVoucherAPI.getProvider().createVoucher(player, uses, duration, rewards);
                                         } catch (Exception exception) {
                                             player.sendMessage(Language.get("invalid-time"));
@@ -72,7 +72,7 @@ public class VoucherCommand extends Command {
                                             player.sendMessage(Language.get("invalid-rewards"));
                                             return;
                                         }
-                                        List<String> rewards = new ArrayList<>(Arrays.asList(rawRewards.split(",")));
+                                        List<String> rewards = new ArrayList<>(Arrays.asList(rawRewards.split(";")));
                                         LlamaVoucherAPI.getProvider().createVoucher(player, target, duration, rewards);
                                     } catch (Exception exception) {
                                         player.sendMessage(Language.get("invalid-time"));
